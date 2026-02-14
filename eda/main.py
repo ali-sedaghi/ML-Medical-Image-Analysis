@@ -5,10 +5,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+from datastats import extract_patient_stats
 from distribution import get_class_distribution
 from loader import load_patient_data
 from show import show_slice
-from datastats import extract_patient_stats
 
 # Set dark style
 plt.style.use("dark_background")
