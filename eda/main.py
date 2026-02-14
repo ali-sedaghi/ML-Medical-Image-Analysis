@@ -48,7 +48,9 @@ df_tumor = df_counts[df_counts["Class"] != 0]
 
 # Plot
 plt.figure(figsize=(12, 6))
-sns.barplot(data=df_tumor, x="Label", y="Count", palette="viridis")
+sns.barplot(
+    data=df_tumor, x="Label", y="Count", hue="Label", palette="viridis", legend=False
+)
 plt.title("Tumor Class Distribution (Excluding Background)")
 plt.ylabel("Pixel Count")
 plt.show()
