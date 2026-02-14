@@ -8,6 +8,7 @@ import seaborn as sns
 from distribution import get_class_distribution
 from loader import load_patient_data
 from show import show_slice
+from datastats import extract_patient_stats
 
 # Set dark style
 plt.style.use("dark_background")
@@ -71,3 +72,29 @@ if os.path.exists(survival_path):
     plt.show()
 else:
     print("Survival CSV not found in expected path.")
+
+
+df_stats = extract_patient_stats(train_dirs, num_samples=50)
+
+# Print Shape and Values for the first few samples
+print("\n--- Individual Patient Statistics (First 10) ---")
+df_stats.head(10)
+
+# Check for inconsistent shapes
+unique_shapes = df_stats["Shape"].unique()
+print(f"\nUnique Shapes found in dataset: {unique_shapes}")
+if len(unique_shapes) > 1:
+    print("WARNING: Dataset contains variable volume dimensions!")
+else:
+    print("PASS: All volumes have consistent dimensions.")
+
+# Global Mean Statistics (Average across the dataset)
+print("\n--- Global Mean Values per Channel ---")
+df_stats[["T1_mean", "T1ce_mean", "T2_mean", "FLAIR_mean"]].describe()
+
+# Visualize the spread of means
+plt.figure(figsize=(12, 6))
+sns.boxplot(data=df_stats[["T1_mean", "T1ce_mean", "T2_mean", "FLAIR_mean"]])
+plt.title("Distribution of Mean Intensity Values per Channel")
+plt.ylabel("Mean Pixel Intensity")
+plt.show()
