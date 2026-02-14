@@ -64,7 +64,7 @@ survival_path = "/kaggle/input/datasets/awsaf49/brats20-dataset-training-validat
 if os.path.exists(survival_path):
     df_survival = pd.read_csv(survival_path)
     print("Survival Data Loaded:")
-    df_survival.head()
+    display(df_survival.head())
 
     plt.figure(figsize=(10, 5))
     sns.histplot(df_survival["Age"], kde=True, bins=20, color="teal")
@@ -78,7 +78,7 @@ df_stats = extract_patient_stats(train_dirs, num_samples=50)
 
 # Print Shape and Values for the first few samples
 print("\n--- Individual Patient Statistics (First 10) ---")
-df_stats.head(10)
+display(df_stats.head(10))
 
 # Check for inconsistent shapes
 unique_shapes = df_stats["Shape"].unique()
@@ -90,7 +90,7 @@ else:
 
 # Global Mean Statistics (Average across the dataset)
 print("\n--- Global Mean Values per Channel ---")
-df_stats[["T1_mean", "T1ce_mean", "T2_mean", "FLAIR_mean"]].describe()
+display(df_stats[["T1_mean", "T1ce_mean", "T2_mean", "FLAIR_mean"]].describe())
 
 # Visualize the spread of means
 plt.figure(figsize=(12, 6))
