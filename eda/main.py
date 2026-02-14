@@ -13,7 +13,7 @@ from show import show_slice
 plt.style.use("dark_background")
 
 # BraTS2020 uploads on Kaggle
-DATA_PATH = "../input/brats20-dataset-training-validation/BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData"
+DATA_PATH = "../input/datasets/awsaf49/brats20-dataset-training-validation/BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData"
 
 # Get list of train directories
 train_dirs = [f.path for f in os.scandir(DATA_PATH) if f.is_dir()]
@@ -55,8 +55,8 @@ plt.show()
 
 
 # Load the mapping CSV
-csv_path = "../input/brats20-dataset-training-validation/BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData/name_mapping.csv"
-survival_path = "../input/brats20-dataset-training-validation/BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData/survival_info.csv"
+csv_path = "/kaggle/input/datasets/awsaf49/brats20-dataset-training-validation/BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData/name_mapping.csv"
+survival_path = "/kaggle/input/datasets/awsaf49/brats20-dataset-training-validation/BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData/survival_info.csv"
 
 if os.path.exists(survival_path):
     df_survival = pd.read_csv(survival_path)
