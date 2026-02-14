@@ -16,6 +16,10 @@ plt.style.use("dark_background")
 # BraTS2020 uploads on Kaggle
 DATA_PATH = "../input/datasets/awsaf49/brats20-dataset-training-validation/BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData"
 
+# Load the mapping CSV
+csv_path = "/kaggle/input/datasets/awsaf49/brats20-dataset-training-validation/BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData/name_mapping.csv"
+survival_path = "/kaggle/input/datasets/awsaf49/brats20-dataset-training-validation/BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData/survival_info.csv"
+
 # Get list of train directories
 train_dirs = [f.path for f in os.scandir(DATA_PATH) if f.is_dir()]
 print(f"Total Patients found: {len(train_dirs)}")
@@ -57,21 +61,14 @@ plt.ylabel("Pixel Count")
 plt.show()
 
 
-# Load the mapping CSV
-csv_path = "/kaggle/input/datasets/awsaf49/brats20-dataset-training-validation/BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData/name_mapping.csv"
-survival_path = "/kaggle/input/datasets/awsaf49/brats20-dataset-training-validation/BraTS2020_TrainingData/MICCAI_BraTS2020_TrainingData/survival_info.csv"
+df_survival = pd.read_csv(survival_path)
+print("Survival Data Loaded:")
+display(df_survival.head())
 
-if os.path.exists(survival_path):
-    df_survival = pd.read_csv(survival_path)
-    print("Survival Data Loaded:")
-    display(df_survival.head())
-
-    plt.figure(figsize=(10, 5))
-    sns.histplot(df_survival["Age"], kde=True, bins=20, color="teal")
-    plt.title("Distribution of Patient Ages")
-    plt.show()
-else:
-    print("Survival CSV not found in expected path.")
+plt.figure(figsize=(10, 5))
+sns.histplot(df_survival["Age"], kde=True, bins=20, color="teal")
+plt.title("Distribution of Patient Ages")
+plt.show()
 
 
 df_stats = extract_patient_stats(train_dirs, num_samples=50)
