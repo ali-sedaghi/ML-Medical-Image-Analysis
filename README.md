@@ -5,7 +5,12 @@ specifically targeting tumor diagnosis and treatment planning. The proposed meth
 with interactive segmentation techniques, aiming to improve accuracy
 while minimizing user effort and computational requirements.
 
+![BraTS Masks](./assets/brats-masks.png)
+
 ### Documents
+
+- [Phase 1](./docs/Phase1-Report.pdf)
+- [Phase 2](./docs/Phase2-Report.pdf)
 
 ### Table of Contents
 
@@ -15,7 +20,7 @@ while minimizing user effort and computational requirements.
 4. [Simple Run](#simple-run)
 5. [Experiments and Results](#experiments-and-results)
 6. [License](#license)
-7. [Acknowledgement](#license)
+7. [Acknowledgement](#acknowledgement)
 
 ## Abstract
 
@@ -74,13 +79,36 @@ data/weights/
 1. To train the model, run the following command with:
 
 ```bash
-python ...
+python ./scripts/train.py ./models/brats/segformerB3.py\
+  --exp-name=Test\
+  --epochs=2\
+  --batch-size=2\
+  --ngpus=0\
+  --cpu\
+  --workers=2\
+  --datapath=./data/datasets/BraTS\
+  --channel=mix\
+  --label=wt\
+  --pretrained
 ```
 
 1. To evaluate the model, run the following command with:
 
 ```bash
-python ,..
+python ./scripts/evaluate.py FocalClick\
+  --model_dir=./experiments/brats/segformerB3/000_FocalClick-SegFormerB3/checkpoints/\
+  --checkpoint=epoch-19-val-loss-1.28.pth\
+  --infer-size=96\
+  --datasets=BraTS_Val\
+  --datapath=./data/datasets/BraTS\
+  --channel=flair\
+  --label=wt\
+  --cpu\
+  --target-iou=0.95\
+  --n-clicks=20\
+  --thresh=0.5\
+  --print-ious\
+  --vis
 ```
 
 Refer to the source code and [Docs](./docs/) for additional options and configurations.
@@ -93,6 +121,18 @@ You can use our ready to use notebooks on Kaggle and Google Colab.
 - Google Colab train and evaluation notebook:
 [[Link]](https://drive.google.com/file/d/1x_5paAO4z3stNoaQx8s9vKgx-FHrouk0/view?usp=sharing)
 - Kaggle evaluation notebook: [[Link]](https://www.kaggle.com/code/zohrehbodaghi/evaluate)
+
+Important hyperparameters:
+
+```python
+MODE = "FocalClick"  # CDNet, FocalClick
+BACKBONE = "segformerB3"  # cdnet_res34, hrnet18s, hrnet32, segformerB3
+CHANNEL = "mix"  # flair, t1, t1ce, t2, mix
+LABEL = "wt"  # net, ed, et, wt, tc
+EPOCHS = 20
+BATCH_SIZE = 32
+# Set --pretrained in below cell
+```
 
 ## Experiments and Results
 
