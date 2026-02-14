@@ -69,10 +69,5 @@ if os.path.exists(survival_path):
     sns.histplot(df_survival["Age"], kde=True, bins=20, color="teal")
     plt.title("Distribution of Patient Ages")
     plt.show()
-
-    plt.figure(figsize=(10, 5))
-    sns.histplot(df_survival["Survival_days"], kde=True, bins=20, color="orange")
-    plt.title("Distribution of Survival Days")
-    plt.show()
 else:
     print("Survival CSV not found in expected path.")
