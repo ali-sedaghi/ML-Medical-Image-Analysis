@@ -113,8 +113,10 @@ This project is licensed under the Apache License. See the [LICENSE](./LICENSE) 
 The core article of this codebase follows:
 
 ```bibtex
-@misc{ClickSEG2022,
-  title = {ClickSEG: A Codebase for Click-Based Interactive Segmentation},
-  author = {Chen, Xi and Zhao, Zhiyan and Zhang, Yilei and Duan, Manni and Qi, Donglian and Zhao, Hengshuang},
-  year = {2022}
+@inproceedings{Chen_2022_CVPR,
+title = {FocalClick: Towards Practical Interactive Image Segmentation},
+author = {Chen, Xi and Zhao, Zhiyan and Zhang, Yilei and Duan, Manni and Qi, Donglian and Zhao, Hengshuang},
+booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+year = {2022},
+pages = {1300-1309}
 }
